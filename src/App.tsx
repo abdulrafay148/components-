@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Input from './com/input';
+import Button from './com/BAbutton';
+import Table from './com/Tabel';
+import './App.css'
+const App: React.FC = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [items, setItems] = useState<string[]>([]);
 
-function App() {
+  const handleAddItem = () => {
+    if (inputValue.trim()) {
+      setItems([...items, inputValue]);
+      setInputValue('');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Simple Todo App</h1>
+      <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+      <Button onClick={handleAddItem}>Add Item</Button>
+      <Table data={items} />
     </div>
   );
-}
+};
 
 export default App;
